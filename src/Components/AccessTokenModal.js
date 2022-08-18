@@ -24,11 +24,13 @@ const AccessTokenModal = ({ setPersonalAccessToken }) => {
     <Modal size='lg' show={true} aria-labelledby='AccessTokenModal'>
       <Modal.Header>
         <Modal.Title>
-          Please enter your public access token to continue
+          Please enter your Github public access token to continue
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form.Label htmlFor='access-token'>Personal Access Token</Form.Label>
+        <Form.Label htmlFor='access-token'>
+          Github Personal Access Token
+        </Form.Label>
         <InputGroup className='mb-3'>
           <Form.Control
             id='access-token'
@@ -38,7 +40,7 @@ const AccessTokenModal = ({ setPersonalAccessToken }) => {
         </InputGroup>
         {error && (
           <Form.Text className='text-danger'>
-            Please enter your public access token
+            Please enter a valid Github personal access token
           </Form.Text>
         )}
         <br />
