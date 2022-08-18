@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-const AccessTokenModal = ({ setPublicAccessKey }) => {
+const AccessTokenModal = ({ setPersonalAccessToken }) => {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState(false);
 
@@ -16,7 +16,7 @@ const AccessTokenModal = ({ setPublicAccessKey }) => {
     } else {
       setError(false);
       sessionStorage.setItem('inSidedProjectPAT', inputValue);
-      setPublicAccessKey(inputValue);
+      setPersonalAccessToken(inputValue);
     }
   };
 

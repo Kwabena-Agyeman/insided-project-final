@@ -15,7 +15,7 @@ import AccessTokenModal from './Components/AccessTokenModal';
 import Commits from './Components/Commits';
 
 function App() {
-  const [publicAccessKey, setPublicAccessKey] = useState(
+  const [personalAccessToken, setPersonalAccessToken] = useState(
     sessionStorage.getItem('inSidedProjectPAT')
   );
   const particlesInit = useCallback((main) => {
@@ -27,10 +27,10 @@ function App() {
       <Particles options={particlesOptions} init={particlesInit} />
       <Nav />
       <Container>
-        {!publicAccessKey ? (
-          <AccessTokenModal setPublicAccessKey={setPublicAccessKey} />
+        {!personalAccessToken ? (
+          <AccessTokenModal setPersonalAccessToken={setPersonalAccessToken} />
         ) : (
-          <Commits />
+          <Commits personalAccessToken={personalAccessToken} />
         )}
       </Container>
     </div>
