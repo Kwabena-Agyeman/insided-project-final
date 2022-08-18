@@ -6,14 +6,17 @@ import { Octokit } from 'octokit';
 // Components
 import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { Loading } from './Loading';
 
 const Commits = ({ personalAccessToken }) => {
   const [commits, setCommits] = useState([]);
+  const [loading, setLoading] = useState(false);
   const octokit = new Octokit({
     auth: personalAccessToken,
   });
 
   const fetchCommits = async () => {
+    setLoading(true);
     try {
       const data = await octokit.paginate(octokit.rest.repos.listCommits, {
         owner: 'Kwabena-Agyeman',
@@ -22,8 +25,10 @@ const Commits = ({ personalAccessToken }) => {
         per_page: 100,
       });
       setCommits(data);
+      setLoading(false);
       console.log({ data });
     } catch (error) {
+      setLoading(false);
       // Reset commits to an empty array
       setCommits([]);
       console.log('error');
@@ -33,6 +38,10 @@ const Commits = ({ personalAccessToken }) => {
   useEffect(() => {
     fetchCommits();
   }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Container fluid className='py-2'>
