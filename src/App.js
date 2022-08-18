@@ -12,6 +12,7 @@ import particlesOptions from './particles.json';
 import Nav from './Components/Nav';
 import { Container } from 'react-bootstrap';
 import AccessTokenModal from './Components/AccessTokenModal';
+import Commits from './Components/Commits';
 
 function App() {
   const [publicAccessKey, setPublicAccessKey] = useState(
@@ -29,7 +30,7 @@ function App() {
         {!publicAccessKey ? (
           <AccessTokenModal setPublicAccessKey={setPublicAccessKey} />
         ) : (
-          <p>Github meun goes here</p>
+          <Commits />
         )}
       </Container>
     </div>
