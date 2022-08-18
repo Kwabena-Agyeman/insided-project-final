@@ -62,12 +62,14 @@ const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
 
   useEffect(() => {
     fetchCommits();
-  }, [config]);
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     if (timer === 0) {
       reFreshCommits();
     }
+    // eslint-disable-next-line
   }, [timer]);
 
   useEffect(() => {
