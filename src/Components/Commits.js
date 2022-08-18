@@ -33,7 +33,6 @@ const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
       });
       setCommits(data);
       setLoading(false);
-      console.log({ data });
     } catch (error) {
       setError(true);
       setLoading(false);
