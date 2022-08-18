@@ -50,14 +50,23 @@ const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
     }
   };
 
+  const reFreshCommits = () => {
+    setTimer(30);
+    fetchCommits();
+  };
+
+  const resetToken = () => {
+    sessionStorage.setItem('inSidedProjectPAT', null);
+    setPersonalAccessToken(null);
+  };
+
   useEffect(() => {
     fetchCommits();
   }, [config]);
 
   useEffect(() => {
     if (timer === 0) {
-      setTimer(30);
-      fetchCommits();
+      reFreshCommits();
     }
   }, [timer]);
 
@@ -68,7 +77,7 @@ const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
       setTimer((prevState) => prevState - 1);
     }, 1000);
     return () => clearInterval(interval);
-  });
+  }, [error]);
 
   if (loading) {
     return <Loading />;
@@ -85,8 +94,7 @@ const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
           size='sm'
           variant='warning'
           onClick={() => {
-            sessionStorage.setItem('inSidedProjectPAT', null);
-            setPersonalAccessToken(null);
+            resetToken();
           }}
         >
           Refresh Access Token
@@ -111,11 +119,18 @@ const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
           size='sm'
           variant='success'
           onClick={() => {
-            fetchCommits();
-            setTimer(30);
+            reFreshCommits();
           }}
         >
           Refresh
+        </Button>
+        <Button
+          size='sm'
+          className='me-2'
+          variant='warning'
+          onClick={() => resetToken()}
+        >
+          Reset access token
         </Button>
         <Button disabled size='sm' variant='secondary'>
           Automatic refresh in - {timer} {timer === 1 ? 'second' : 'seconds'}
