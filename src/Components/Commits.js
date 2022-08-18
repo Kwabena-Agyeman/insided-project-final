@@ -110,10 +110,10 @@ const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
       <Container className='d-flex-column justify-content-between align-items-center'>
         <div>
           <span>
-            Github user : <h4>Owner Name</h4>
+            Github user : <h4>{config.owner}</h4>
           </span>
           <span>
-            Repo name :<h4>Repo Name</h4>
+            Repo name :<h4>{config.repo}</h4>
           </span>
         </div>
         <Button
