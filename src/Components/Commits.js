@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Loading } from './Loading';
+import Commit from './Commit';
 
 const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
   const [commits, setCommits] = useState([]);
@@ -50,7 +51,7 @@ const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
 
   useEffect(() => {
     fetchCommits();
-  }, []);
+  }, [config]);
 
   if (loading) {
     return <Loading />;
@@ -96,7 +97,14 @@ const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
         </Button>
       </Container>
       {commits.map((el, index) => {
-        return <p>Commit goes here</p>;
+        return (
+          <Commit
+            key={el.sha}
+            data={el}
+            index={index}
+            length={commits.length}
+          />
+        );
       })}
     </Container>
   );
