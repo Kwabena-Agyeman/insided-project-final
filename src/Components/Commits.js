@@ -12,7 +12,7 @@ import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Loading } from './Loading';
 
-const Commits = ({ personalAccessToken }) => {
+const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
   const [commits, setCommits] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -54,6 +54,27 @@ const Commits = ({ personalAccessToken }) => {
 
   if (loading) {
     return <Loading />;
+  }
+
+  if (error) {
+    return (
+      <div className='my-4'>
+        <h5>
+          There was an issue in your Github Token, Please re-enter your key!
+        </h5>
+        <Button
+          className='my-2'
+          size='sm'
+          variant='warning'
+          onClick={() => {
+            sessionStorage.setItem('inSidedProjectPAT', null);
+            setPersonalAccessToken(null);
+          }}
+        >
+          Refresh Access Token
+        </Button>
+      </div>
+    );
   }
 
   return (

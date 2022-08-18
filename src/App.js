@@ -30,7 +30,10 @@ function App() {
         {!personalAccessToken ? (
           <AccessTokenModal setPersonalAccessToken={setPersonalAccessToken} />
         ) : (
-          <Commits personalAccessToken={personalAccessToken} />
+          <Commits
+            personalAccessToken={personalAccessToken}
+            setPersonalAccessToken={setPersonalAccessToken}
+          />
         )}
       </Container>
     </div>
