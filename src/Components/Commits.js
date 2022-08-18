@@ -17,6 +17,7 @@ const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
   const [commits, setCommits] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [timer, setTimer] = useState(30);
   const octokit = new Octokit({
     auth: personalAccessToken,
   });
@@ -52,6 +53,22 @@ const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
   useEffect(() => {
     fetchCommits();
   }, [config]);
+
+  useEffect(() => {
+    if (timer === 0) {
+      setTimer(30);
+      fetchCommits();
+    }
+  }, [timer]);
+
+  useEffect(() => {
+    if (error) return;
+
+    const interval = setInterval(() => {
+      setTimer((prevState) => prevState - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  });
 
   if (loading) {
     return <Loading />;
@@ -93,7 +110,7 @@ const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
           Refresh
         </Button>
         <Button disabled size='sm' variant='secondary'>
-          Automatic refresh in 30 secs
+          Automatic refresh in - {timer} {timer === 1 ? 'second' : 'seconds'}
         </Button>
       </Container>
       {commits.map((el, index) => {
