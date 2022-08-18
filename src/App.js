@@ -11,6 +11,7 @@ import particlesOptions from './particles.json';
 // Components
 import Nav from './Components/Nav';
 import { Container } from 'react-bootstrap';
+import AccessTokenModal from './Components/AccessTokenModal';
 
 function App() {
   const [publicAccessKey, setPublicAccessKey] = useState(
@@ -26,7 +27,7 @@ function App() {
       <Nav />
       <Container>
         {!publicAccessKey ? (
-          <p>Input form goes here</p>
+          <AccessTokenModal setPublicAccessKey={setPublicAccessKey} />
         ) : (
           <p>Github meun goes here</p>
         )}
