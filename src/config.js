@@ -1,4 +1,4 @@
-export default {
+export const config = {
   owner: 'Kwabena-Agyeman',
   repo: 'insided-project-final',
   page: 1,

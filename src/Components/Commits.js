@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { Octokit } from 'octokit';
 
 // Helpers
-import config from '../config';
+import { config } from '../config';
+import { toast } from 'react-toastify';
 
 // Components
 import { Container } from 'react-bootstrap';
@@ -14,6 +15,7 @@ import { Loading } from './Loading';
 const Commits = ({ personalAccessToken }) => {
   const [commits, setCommits] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const octokit = new Octokit({
     auth: personalAccessToken,
   });
@@ -31,10 +33,18 @@ const Commits = ({ personalAccessToken }) => {
       setLoading(false);
       console.log({ data });
     } catch (error) {
+      setError(true);
       setLoading(false);
       // Reset commits to an empty array
       setCommits([]);
-      console.log('error');
+      if (error.status === 401) {
+        toast('Incorrect credentials', {
+          type: 'error',
+        });
+      } else
+        toast(error.message, {
+          type: 'error',
+        });
     }
   };
 
