@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 // Services
 import { Octokit } from 'octokit';
 
+// Helpers
+import config from '../config';
+
 // Components
 import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
@@ -19,10 +22,10 @@ const Commits = ({ personalAccessToken }) => {
     setLoading(true);
     try {
       const data = await octokit.paginate(octokit.rest.repos.listCommits, {
-        owner: 'Kwabena-Agyeman',
-        repo: 'insided-project-final',
-        page: 1,
-        per_page: 100,
+        owner: config.owner,
+        repo: config.repo,
+        page: config.page,
+        per_page: config.per_page,
       });
       setCommits(data);
       setLoading(false);
