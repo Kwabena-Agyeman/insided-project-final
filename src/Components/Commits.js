@@ -1,11 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+// Services
+import { Octokit } from 'octokit';
 
 // Components
 import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
-const Commits = () => {
+const Commits = ({ personalAccessToken }) => {
   const [commits, setCommits] = useState([]);
+  const octokit = new Octokit({
+    auth: personalAccessToken,
+  });
+
+  const fetchCommits = async () => {
+    try {
+      const data = await octokit.paginate(octokit.rest.repos.listCommits, {
+        owner: 'Kwabena-Agyeman',
+        repo: 'insided-project-final',
+        page: 1,
+        per_page: 100,
+      });
+      setCommits(data);
+      console.log({ data });
+    } catch (error) {
+      // Reset commits to an empty array
+      setCommits([]);
+      console.log('error');
+    }
+  };
+
+  useEffect(() => {
+    fetchCommits();
+  }, []);
+
   return (
     <Container fluid className='py-2'>
       <Container className='d-flex-column justify-content-between align-items-center'>
