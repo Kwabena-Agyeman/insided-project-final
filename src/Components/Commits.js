@@ -106,7 +106,15 @@ const Commits = ({ personalAccessToken, setPersonalAccessToken }) => {
             Repo name :<h4>Repo Name</h4>
           </span>
         </div>
-        <Button className='me-2' size='sm' variant='success'>
+        <Button
+          className='me-2'
+          size='sm'
+          variant='success'
+          onClick={() => {
+            fetchCommits();
+            setTimer(30);
+          }}
+        >
           Refresh
         </Button>
         <Button disabled size='sm' variant='secondary'>
